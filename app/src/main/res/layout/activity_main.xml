@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="МГКЭИТ"
+        android:textSize="60dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="Расписание"
+        android:textSize="15dp"
+        app:backgroundTint="#489C45"
+        app:iconTint="@null"
+        android:id="@+id/timetable"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="Новости"
+        android:textSize="15dp"
+        app:backgroundTint="#3E853B"
+        app:iconTint="@null"
+        android:id="@+id/news"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="Замены"
+        android:textSize="15dp"
+        app:backgroundTint="#2D602B"
+        app:iconTint="@null"
+        android:id="@+id/change"/>
+
+</LinearLayout>
