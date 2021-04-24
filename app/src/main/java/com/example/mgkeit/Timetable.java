@@ -1,33 +1,30 @@
 package com.example.mgkeit;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Timetable extends AppCompatActivity {
 
-    ListView listView;
-    ArrayList<JSONObject> timetables = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getActionBar().setTitle("Расписание");
         setContentView(R.layout.activity_timetable);
-        listView = findViewById(R.id.lv);
-        try {
-            timetables.add(new JSONObject("{name: 'test'}"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        getActionBar().setTitle("Расписание");
+
 
 //        SharedPreferences prefs = getSharedPreferences("com.example.mgkeit.PREFERENCE", Context.MODE_PRIVATE);
 //        if (prefs.getInt("test1", -1) == -1) {
@@ -40,7 +37,48 @@ public class Timetable extends AppCompatActivity {
 //        };
 //        SharedPreferences.Editor editor = prefs.edit();
 //        edit.put
-    TimetableAdaptor timetableAdaptor = new TimetableAdaptor(timetables,Timetable.this);
-    listView.setAdapter(timetableAdaptor);
+        Parser task = new Parser();
+        task.execute();
     }
-}
+
+    //
+
+    class Parser extends AsyncTask<Void, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            OkHttpClient client = new OkHttpClient();
+            Log.d("res111", "doInBackground");
+            String res_request="";
+            Request request = new Request.Builder().url("https://vivers0.pythonanywhere.com/api/timetable/").build();
+            try {
+                Response response = client.newCall(request).execute();
+                res_request=response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+         return res_request;
+        }
+        @Override
+        protected void onPostExecute(String json)
+        {
+            ListView listView;
+            listView = findViewById(R.id.lv);
+            try {
+//                JSONArray
+                ArrayList<JSONArray> timetables = new ArrayList<>();
+                JSONArray array = new JSONObject(json).getJSONArray("timetable");
+                timetables.add(array);
+                Log.d("asdf",array.get(0).toString());
+                TimetableAdaptor timetableAdaptor = new TimetableAdaptor(array, Timetable.this);
+                listView.setAdapter(timetableAdaptor);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    }
