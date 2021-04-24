@@ -8,18 +8,26 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Timetable extends AppCompatActivity {
 
     ListView listView;
-    ArrayList<String> timetables = new ArrayList<>();
+    ArrayList<JSONObject> timetables = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getActionBar().setTitle("Расписание");
         setContentView(R.layout.activity_timetable);
         listView = findViewById(R.id.lv);
+        try {
+            timetables.add(new JSONObject("{name: 'test'}"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 //        SharedPreferences prefs = getSharedPreferences("com.example.mgkeit.PREFERENCE", Context.MODE_PRIVATE);
 //        if (prefs.getInt("test1", -1) == -1) {
